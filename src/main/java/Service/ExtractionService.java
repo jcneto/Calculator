@@ -43,7 +43,7 @@ public class ExtractionService
 		{
 			Operation operation = Operation.valueOf(operationMatcher.group(1).toUpperCase());
 
-			final String attributesPortion = operationMatcher;
+			final String attributesPortion = operationMatcher.group(2);
 
 			final Matcher simpleArgumentsMatcher = SIMPLE_ARGUMENTS_EXTRACTION_PATTERN.matcher(attributesPortion);
 			final Matcher letArgumentsMatcher = LET_ARGUMENTS_EXTRACTION_PATTERN.matcher(attributesPortion);
