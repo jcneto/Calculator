@@ -24,4 +24,10 @@ public class Number implements MathEntity
 	{
 		return value;
 	}
+
+	@Override
+	public String toString()
+	{
+		return String.valueOf(this.getValue());
+	}
 }
