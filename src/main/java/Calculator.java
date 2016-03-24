@@ -37,30 +37,41 @@ public class Calculator
 			System.err.println("Please provide and input such as \"add(2,2)\"");
 			System.exit(-1);
 		}
-
-		Level level = Level.ALL;
-		if (args.length > 1)
+		else
 		{
-			String logLevel = StringUtils.stripToEmpty(args[1]).toLowerCase();
 
-			if (logLevel.equals("info"))
+			Level level = Level.ALL;
+			if (args.length > 1)
 			{
-				level = Level.INFO;
+				String logLevel = StringUtils.stripToEmpty(args[1]).toLowerCase();
+
+				if (logLevel.equals("info"))
+				{
+					level = Level.INFO;
+				}
+				else if (logLevel.equals("error"))
+				{
+					level = Level.ERROR;
+				}
+				else if (!logLevel.equals("debug"))
+				{
+					System.err.println("Unrecognized log level, setting to ALL.");
+				}
 			}
-			else if (logLevel.equals("error"))
+			LogManager.getRootLogger().setLevel(level);
+
+			Calculator calc = new Calculator();
+
+			try
 			{
-				level = Level.ERROR;
+				System.out.println(calc.calculate(args[0]));
+				System.exit(0);
 			}
-			else if (!logLevel.equals("debug"))
+			catch (IllegalArgumentException | ArithmeticException e)
 			{
-				System.err.println("Unrecognized log level, setting to ALL.");
+				System.err.println("Error while processing your request. Please check the logs for details");
+				System.exit(-1);
 			}
 		}
-		LogManager.getRootLogger().setLevel(level);
-
-		Calculator calc = new Calculator();
-
-		System.out.println(args[0] + " = " + calc.calculate(args[0]));
-		System.exit(0);
 	}
 }

@@ -79,13 +79,17 @@ public class ExtractionService
 			}
 			else
 			{
+				LOGGER.error(input + " has arguments bad formatted");
 				throw new IllegalArgumentException("Arguments are no formatted correctly on " + input);
 			}
 			LOGGER.debug("Ending extraction of input " + input + " with result: \n\tOperation: " + operation + "\n\tv1: " + v1 + "\n\tv2: " + v2);
 			return new Expression(operation, v1, v2);
 		}
-
-		return null;
+		else
+		{
+			LOGGER.error(input + " is not a valid operation");
+			throw new IllegalArgumentException("Input is not a valid operation");
+		}
 	}
 
 	private MathEntity createMathEntity(final String stringValue)

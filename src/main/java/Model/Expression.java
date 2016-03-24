@@ -35,18 +35,34 @@ public class Expression implements MathEntity
 		switch (this.getOperation())
 		{
 			case ADD:
+				if (Integer.MAX_VALUE - v2 < v1)
+				{
+					throw new ArithmeticException(String.format("%d + %d is bigger than Integer.MaxValue", v1, v2));
+				}
 				result = v1 + v2;
 				LOGGER.debug(String.format("%d + %d = %d", v1, v2, result));
 				break;
 			case DIV:
+				if (Integer.MIN_VALUE * v2 > v1)
+				{
+					throw new ArithmeticException(String.format("%d / %d is smaller than Integer.MinValue", v1, v2));
+				}
 				result = v1 / v2;
 				LOGGER.debug(String.format("%d / %d = %d", v1, v2, result));
 				break;
 			case SUB:
+				if (Integer.MIN_VALUE + v2 > v1)
+				{
+					throw new ArithmeticException(String.format("%d - %d is smaller than Integer.MinValue", v1, v2));
+				}
 				result = v1 - v2;
 				LOGGER.debug(String.format("%d - %d = %d", v1, v2, result));
 				break;
 			case MULT:
+				if (Integer.MAX_VALUE / v2 < v1)
+				{
+					throw new ArithmeticException(String.format("%d * %d is bigger than Integer.MaxValue", v1, v2));
+				}
 				result = v1 * v2;
 				LOGGER.debug(String.format("%d * %d = %d", v1, v2, result));
 				break;
